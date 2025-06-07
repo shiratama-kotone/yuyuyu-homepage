@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アラート表示</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://cdn.glitch.global/b063afd9-f3c5-4a81-a445-da854de0fa7a/yuyuyu-new-visual.png">
+</head>
+<body>
+    <div id="header"></div>
+    <div class="content">
+        <input type="text" id="userInput" placeholder="好きな文字を入力してください">
+        <button onclick="showAlert()">表示</button>
+    </div>
+    <div id="footer"></div>
+    <script>
+        function showAlert() {
+            const input = document.getElementById("userInput").value;
+            alert(input || "何も入力されていません！");
+        }
+    </script>
+  <script src="script.js"></script>
+</body>
+</html>

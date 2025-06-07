@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>タイピングゲーム</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="https://cdn.glitch.global/b063afd9-f3c5-4a81-a445-da854de0fa7a/yuyuyu-new-visual.png">
+  <style>
+    #game-area {
+      text-align: center;
+      margin-top: 50px;
+    }
+    h2 {
+      font-size: 2em;
+      color: #9370db;
+    }
+    #romaji {
+      font-size: 1.5em;
+      color: gray;
+    }
+    #typed {
+      font-size: 1.5em;
+      color: red;
+    }
+    button {
+      font-size: 18px;
+      padding: 10px;
+      background-color: #9370db;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #8058a5;
+    }
+  </style>
+</head>
+<body>
+  <div id="header"></div>
+  <div class="content">
+    <h1>タイピングゲーム</h1>
+    <div id="game-area">
+      <h2 id="word">スタートを押してね</h2>
+      <p id="romaji"></p>
+      <p id="typed"></p>
+    </div>
+    <p>スコア: <span id="score">0</span></p>
+    <p>残り時間: <span id="time">30</span>秒</p>
+    <button id="start">スタート</button>
+  </div>
+  <div id="footer"></div>
+  <script src="script.js"></script>
+  <script src="typing.js"></script>
+</body>
+</html>

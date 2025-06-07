@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>オンラインタイマー</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://cdn.glitch.global/b063afd9-f3c5-4a81-a445-da854de0fa7a/yuyuyu-new-visual.png">
+</head>
+<body>
+    <div id="header"></div>
+    <div class="content">
+        <h1>タイマー</h1>
+        <label for="timeInput">秒数を入力:</label>
+        <input type="number" id="timeInput" min="1">
+        <button id="startButton">開始</button>
+        <button id="stopButton" disabled>ストップ</button>
+        <p id="countdown"></p>
+    </div>
+    <div id="footer"></div>
+    <script>
+        let timerInterval = null;
+        let beepInterval = null;
+
+        document.getElementById('startButton').addEventListener('click', () => {
+            const timeInput = document.getElementById('timeInput').value;
+            const countdownDisplay = document.getElementById('countdown');
+            let timeRemaining = parseFloat(timeInput) * 1000; // ミリ秒に変換
+
+            if (isNaN(timeRemaining) || timeRemaining <= 0) {
+                countdownDisplay.textContent = '正しい秒数を入力してください';
+                return;
+            }
+
+            document.getElementById('stopButton').disabled = false;
+
+            const playBeep = () => {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                for (let i = 0; i < 4; i++) {
+                    setTimeout(() => {
+                        const oscillator = audioCtx.createOscillator();
+                        oscillator.type = 'sawtooth';
+                        oscillator.frequency.setValueAtTime(2000, audioCtx.currentTime);
+                        oscillator.connect(audioCtx.destination);
+                        oscillator.start();
+                        oscillator.stop(audioCtx.currentTime + 0.02); // 0.02秒で停止
+                    }, i * 100);
+                }
+            };
+
+            const startTime = performance.now();
+            timerInterval = setInterval(() => {
+                const elapsedTime = performance.now() - startTime;
+                timeRemaining = Math.max(0, parseFloat(timeInput) * 1000 - elapsedTime);
+                countdownDisplay.textContent = `残り時間: ${timeRemaining.toFixed(10)} ミリ秒`;
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    countdownDisplay.textContent = 'タイマー終了';
+                    beepInterval = setInterval(playBeep, 1000); // 1秒ごとに音を鳴らす
+                }
+            }, 10); // 10ミリ秒ごとに更新
+        });
+
+        document.getElementById('stopButton').addEventListener('click', () => {
+            clearInterval(timerInterval);
+            clearInterval(beepInterval);
+            document.getElementById('countdown').textContent = 'タイマー停止';
+            document.getElementById('stopButton').disabled = true;
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

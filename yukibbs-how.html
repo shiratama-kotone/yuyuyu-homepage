@@ -1,0 +1,368 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YukiBBS色々</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="https://cdn.glitch.global/92a9e88e-8915-459f-9c1c-dea675176022/yuyuyu-new-visual.png?v=1738347833114">
+</head>
+<body>
+  <div id="header"></div> 
+  <div class="content">
+  
+  <h1 class="index1">
+    ルール
+    </h1>
+    
+    <p>
+      誹謗中傷→禁止<br>
+      荒らし → 禁止<br>
+      下ネタ → 22:30から5:00までの間、または、バトルスタジアムならOK
+    </p>
+  <hr>
+    
+    <h1 class="index1">
+      権限一覧
+    </h1>
+    <h2><font color="red">運営</font></h2>
+    <p>
+      IDがなく(実際はあって表示されてないだけです。)、<font color="red">赤文字</font>で表示されます。
+    </p>
+    <h3>
+      現在の運営
+    </h3>
+    <p>
+      Yuki・P氏・夕暮・だよ・YK・モド・れあきゃら・佐生
+    </p>
+    <h2>
+      <font color="darkcyan">サミット</font>
+    </h2>
+    <p>
+      IDが<font color="darkcyan">ダークシアン</font>で表示されています。<br>
+      運営の代理であり、ほぼすべてのコマンドが使用できます。
+    </p>
+    <h2>
+      <font color="red">マネージャー</font>
+    </h2>
+    <p>
+      IDが<font color="red">赤色</font> で表示されています。<br>
+      ある程度のコマンドが使用できます。
+    </p>
+    <h2>
+      <font color="darkorange">スピーカー</font>
+    </h2>
+    <p>
+      IDが<font color="darkorange">薄橙（オレンジ）</font> で表示されています。
+    </p>
+    <h2>
+      <font color="blue">青ID</font>
+    </h2>
+    <p>
+      IDが<font color="blue">青色</font> で表示されています。<br>
+      初期の権限です。コマンドは使えません。<br>
+      様々な規制がかかります。
+    </p>
+    <hr>
+  <h1 class="index1">コマンド集</h1>
+    
+      <h3>
+        <a href="#投稿削除">投稿削除コマンド</a>
+    </h3>
+    <a href="#del">/del</a><br>
+    <a href="#destroy">/destory</a><br>
+    <a href="#clear">/clear</a><br>
+    <h3>
+      <a href="#投稿規制">投稿規制コマンド</a>
+    </h3>
+    <a href="#NG">/NG</a><br>
+    <a href="#OK">/OK</a><br>
+    <a href="#prevent">/prevent</a><br>
+    <a href="#permit">/permit</a><br>
+    <a href="#restrict">/restrict</a><br>
+    <a href="#stop">/stop</a><br>
+    <a href="#prohibit">/prohibit</a><br>
+    <a href="#release">/release</a><br>
+    <h3>
+      <a href="#アカウント関連">アカウント関連コマンド</a>
+    </h3>
+    <a href="#昇格">権限昇格コマンド</a><br>
+    <a href="#降格">権限降格コマンド</a><br>
+    <a href="#disself">/disself</a><br>
+    <a href="#kill">/kill</a><br>
+    <a href="#ban">/ban</a><br>
+    <a href="#revive">/revive</a><br>
+    <a href="#reduce">/reduce</a><br>
+    <h3>
+      <a href="#その他">その他</a>
+    </h3>
+    <a href="#topic">/topic</a><br>
+    <a href="#add">/add</a><br>
+    <a href="#color">/color</a><br>
+    <a href="#instances">/insrances</a><br>
+    <h3>
+      <a href="#応用">応用</a>
+    </h3>
+    <a herf="#一括">一括実行</a>
+    
+    <hr>
+    
+    <h2 id="投稿削除">
+    投稿削除コマンド  
+    </h2>
+    
+    <h3 id="del">
+      /del
+    </h3>
+    <p>
+      /del [投稿番号] のように番号を指定して投稿を削除します。<br>
+      <font color="red">マネージャー</font>以上が使用可能です。
+    </p>
+    
+    <h3 id="destroy">
+      /destroy
+    </h3>
+    <p>
+      /destroy [文字列] のようにして特定の文字やIDが含まれる投稿を一括で削除します。<br>
+      []内の文字を特定の文字にすることで条件を変えられます。<br>
+      <font color="red">マネージャー</font>以上が使用可能です。
+      ・[color] 特定の権限の投稿だけを削除します。<br>
+      <font color="blue">blue</font>が<font color="blue">青ID</font>、
+      <font color="darkorange">darkorage</font>が<font color="darkorange">スピーカー</font>、
+      <font color="red">red</font>が<font color="red">マネージャー</font>と<font color ="red">運営</font>、
+      <font color="darkcyan">darkcyan</font>が<font color="darkcyan">サミット</font>です。
+    </p>
+    
+    <h3 id="clear">
+      /clear
+    </h3>
+    <p>
+      すべての投稿を削除します。<br>
+      投稿番号がリセットされます。<br>
+      <font color="darkcyan">サミット</font>以上が使用可能です。
+    </p>
+    
+    <hr>
+  
+    <h2 id="投稿規制">
+      投稿規制コマンド
+    </h2>
+    
+    <h3 id="NG">
+      /NG
+    </h3>
+    <p>
+      /NG [使用禁止にする言葉] のように入力し、<font color="blue">青ID</font>では使用禁止にします。<br>
+      <font color="red">マネージャー</font>以上が使用可能です。
+    </p>
+    
+    <h3 id="OK">
+      /OK
+    </h3>
+    <p>
+      /OK [NGで登録した言葉] のように入力し、<font color="blue">青ID</font>で使用可能にします。<br>
+      <font color="red">マネージャー</font>以上が使用可能です。
+    </p>
+    
+    <h3 id="prevent">
+      /prevent
+    </h3>
+    <p>
+      解除されるまで<font color="blue">青ID</font>が雑談に投稿できなくします。<br>
+      <font color="darkcyan">サミット</font>以上が使用可能です。
+    </p>
+    
+    <h3 id="permit">
+      /permit
+    </h3>
+    <p>
+      <a href="#prevent">/prevent</a> を解除します。<br>
+      <font color="red">マネージャー</font>以上が使用可能です。
+    </p>
+    
+    <h3 id="restrict">
+      /restrict
+    </h3>
+    <p>
+      青IDの投稿の制限をします。<br>
+      <a href="#ban">ban</a>された<font color="blue">青ID</font>のアカウントは投稿ができなくなります。<br>
+      <font color="darkcyan">サミット</font>以上が使用可能です。
+    </p>
+    
+    <h3 id="stop">
+      /stop
+    </h3>
+    <p>
+      3分間<font color="blue">青ID</font>の投稿を禁止します。<br>
+      <font color="darkcyan">サミット</font>以上が使用可能です。
+    </p>
+    
+    <h3 id="prohibit">
+      /prohibit
+    </h3>
+    <p>
+      /prohibit [時間] のように入力し、指定した時間の間<font color="blue">青ID</font>は投稿ができなくなります。<br>
+      <font color="red">運営</font>のみ使用可能です。
+    </p>
+    
+    <h3 id="release">
+      /release
+    </h3>
+    <p>
+      <a href="#restrict">/restrict</a>,<a href="#stop">/stop</a>,<a href="#prohibit">/prohibit</a>を解除します。<br>
+      <font color="red">マネージャー</font>以上が使用可能です。
+    </p>
+    
+    <hr>
+    
+    <h2 id="アカウント関連">
+      アカウント関連コマンド
+    </h2>
+    
+    <h3 id="昇格">
+      権限昇格
+    </h3>
+    <p>
+      /[権限] [ID] のように入力し、権限を昇格することができます。<br>
+      
+      <font color="red">マネージャー</font>は<font color="darkorange">スピーカー</font>を付与できます。<br>
+      <font color="darkcyan">サミット</font>は<font color="darkorange">スピーカー</font>と<font color="red">マネージャー</font>を付与できます。<br>
+      <font color="red">運営</font>は<font color="darkcyan">サミット</font>と<font color="red">マネージャー</font>と<font color="darkorange">スピーカー</font>を付与できます。<br><br>
+      例1 : /speaker yukibbs&nbsp;&nbsp;&nbsp;IDが @yukibbs のアカウントを<font color="darkorange">スピーカー</font>にできます。<br>
+      例2 : /manager yukibbs&nbsp;&nbsp;&nbsp;IDが @yukibbs のアカウントを<font color="red">マネージャー</font>にできます。<br>
+      例3 : /summit yukibbs&nbsp;&nbsp;&nbsp;&nbsp;IDが @yukibbs のアカウントを<font color="darkcyan">サミット</font>にできます。<br>
+    </p>
+    
+    <h3 id="降格">
+      権限降格
+    </h3>
+     <p>
+      /dis[権限] [ID] のように入力し、権限を降格することができます。<br>
+      
+      <font color="red">マネージャー</font>は<font color="darkorange">スピーカー</font>を降格できます。<br>
+      <font color="darkcyan">サミット</font>は<font color="darkorange">スピーカー</font>と<font color="red">マネージャー</font>を降格できます。<br>
+      <font color="red">運営</font>は<font color="darkcyan">サミット</font>と<font color="red">マネージャー</font>と<font color="darkorange">スピーカー</font>を降格できます。<br><br>
+      例1 : /disspeaker yukibbs&nbsp;&nbsp;&nbsp;IDが @yukibbs のアカウントを<font color="blue">青ID</font>にできます。<br>
+      例2 : /dismanager yukibbs&nbsp;&nbsp;&nbsp;IDが @yukibbs のアカウントを<font color="darkorange">スピーカー</font>にできます。<br>
+      例3 : /dissumit yukibbs&nbsp;&nbsp;&nbsp;&nbsp;IDが @yukibbs のアカウントを<font color="red">マネージャー</font>にできます。<br>
+    </p>
+    
+    <h3 id="disself">
+      /disself
+    </h3>
+    <p>
+      実行されたアカウントの権限を<font color="blue">青ID</font>にします。<br>
+      シード漏洩のときや、アカウント移行のときに使用します。<br>
+      <b> <s>決して</b>遊びで使用してはいけません。</s><br>やりすぎない程度なら遊んでもいいです byだよ
+    </p>
+    
+    <h3 id="kill">
+      /kill
+    </h3>
+    <p>
+      /kill [ID] のように入力し、指定されたアカウントが再起動されるか <a href="#revive">/revive</a>が実行されるまで使用不可能にします。<br>
+      <font color="darkcyan">サミット</font>以上が使用可能です。
+    </p>
+    
+    <h3 id="ban">
+      /ban
+    </h3>
+    <p>
+      /ban [ID] のように入力し、指定したIDのIPを再起動されるか<a href="#revive">/revive</a>が実行されるまで<a href="#prevent">/prevent</a>,<a href="#restrict">/restrict</a>が実行中のときに使用不可能にします。<br>
+      または、/ban [投稿番号] のようにも指定できます。<br>
+      <font color="darkcyan">サミット</font>以上が使用可能です。
+    </p>
+    
+    <h3 id="revive">
+      /rivive
+    </h3>
+    <p>
+      <a href="#kill">/kill</a>及び<a href="#ban">/ban</a>の効果をすべて解除します。<br>
+      <font color="red">マネージャー</font>以上が使用可能です。
+    </p>
+    
+    <h3 id="reduce">
+      /reduse
+    </h3>
+    <p>
+      権限全体の2%を削除します。<br>
+      <font color="red">運営</font>のみ使用可能です。
+    </p>
+      
+      <hr>
+    
+    <h2 id="その他">
+      その他
+    </h2>
+    
+    <h3 id="topic">
+      /topic
+    </h3>
+    <p>
+      /topic [話題にしたい内容] でtopicを変更できます。<br>
+      topicとは投稿の上にある 今の話題 です。<br>
+      <font color="red">マネージャー</font>以上が使用可能です。
+    </p>
+    
+    <h3 id="add">
+      /add
+    </h3>
+    <p>
+      /add [ID] [IDの後ろにつけたい文字] でadd(IDの後ろにつける<font color="magenta">赤紫色</font>の文字)を設定できます。<br>
+      <font color="red">マネージャー</font>以上が使用可能です。
+    </p>
+    
+    <h3 id="color">
+      /color
+    </h3>
+    <p>
+      /color [カラーコード] [ID] で名前の色を変更できます。<br>
+      カラーコードはHEX形式で # が必要です。
+      <font color="red">マネージャー</font>以上が使用可能です。
+    </p>
+    
+    <h3 id="instances">
+      /instances
+    </h3>
+    <p>
+      現在使っているインスタンスを登録、登録されているインスタンスを閲覧できます。
+      <font color="red">マネージャー</font>以上が使用可能です。
+    </p>
+    
+    <h2 id="応用">
+      応用
+    </h2>
+    
+    <h3 id="一括">
+      一括実行
+    </h3>
+    <p>
+      一括実行する場合、半角スペースで区切ってください。<br>
+      例 : /del 12 26<br>
+      一括で実行できるコマンド
+      <li><a href="#del">/del</a></li>
+      <li><a href="#destroy">/destroy</a></li>
+      <li><a href="#NG">/NG</a></li>
+      <li><a href="#OK">/OK</a></li>
+      <li><a href="#昇格">昇格</a>、<a href="#降格">降格</a>コマンド</li>
+      <li><a href="#kill">/kill</a></li>
+      <li><a href="#ban">/ban</a></li>
+    </p>
+    
+    <h1 class="index1">
+      規制
+    </h1>
+    
+    <h2>
+      常時作用
+    </h2>
+    <h3>
+      基本的なメッセージ規制
+    </h3>
+    <li>連投による権限の降格。</li>
+    
+    <h3>
+      <font color="blue">青ID</font>の
+    </h3>
+  </div>
+  <div id="footer"></div> 
+  <script src="script.js"></script>
+</body>

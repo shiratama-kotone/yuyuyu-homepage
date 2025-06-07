@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <link rel="styleseet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>エンドレス再生</title>
+</head>
+<body>
+    <h1>音声エンドレス再生デモ</h1>
+    <button id="playButton">再生開始</button>
+    <script>
+        var audio = new Audio('https://cdn.glitch.global/b063afd9-f3c5-4a81-a445-da854de0fa7a/YAJU%26U.mp3?v=1741267385382');
+        audio.loop = true;
+
+        document.getElementById('playButton').addEventListener('click', function () {
+            audio.play();
+        });
+    </script>
+</body>
+</html>

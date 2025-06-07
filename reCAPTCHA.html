@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>reCAPTCHA 認証</title>
+  <script src="https://www.google.com/recaptcha/api.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+    .center {
+      text-align: center;
+    }
+    .message {
+      display: none;
+      color: white;
+      font-size: 2em;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="center">
+    <div class="g-recaptcha" 
+         data-sitekey="6LdcjUIrAAAAAEJy39kSBtN7bGDltw0gL0xdT23w" 
+         data-callback="onRecaptchaSuccess"></div>
+  </div>
+
+  <div class="message" id="message">
+    あなたは人間です！
+  </div>
+
+  <script>
+    function onRecaptchaSuccess() {
+      // 背景色を緑に変更
+      document.body.style.backgroundColor = "lightgreen";
+
+      // 認証完了メッセージを表示
+      document.querySelector(".g-recaptcha").style.display = "none";
+      const message = document.getElementById("message");
+      message.style.display = "block";
+    }
+  </script>
+</body>
+</html>

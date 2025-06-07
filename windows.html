@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ウィンドウ移動</title>
+</head>
+<body>
+    <button id="moveWindow">ウィンドウを動かす</button>
+
+    <script>
+        let newWindow;
+        let speedX = 2;
+        let speedY = 2;
+        let posX = 100;
+        let posY = 100;
+
+        document.getElementById("moveWindow").addEventListener("click", () => {
+            // 新しいウィンドウを開く
+            newWindow = window.open("", "", "width=500,height=500");
+
+            // 初期位置にウィンドウを設定
+            newWindow.moveTo(posX, posY);
+
+            // ウィンドウを動かす関数
+            function moveWindow() {
+                posX += speedX;
+                posY += speedY;
+
+                // 画面の端にぶつかると跳ね返る
+                if (posX <= 0 || posX + 500 >= screen.width) {
+                    speedX = -speedX;
+                }
+                if (posY <= 0 || posY + 500 >= screen.height) {
+                    speedY = -speedY;
+                }
+
+                // ウィンドウの位置を更新
+                newWindow.moveTo(posX, posY);
+
+                // 再度動かす
+                setTimeout(moveWindow, 10);
+            }
+
+            // 動かし始める
+            moveWindow();
+        });
+    </script>
+</body>
+</html>

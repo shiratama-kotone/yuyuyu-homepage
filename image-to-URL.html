@@ -1,0 +1,54 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>画像URL化</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="https://cdn.glitch.global/92a9e88e-8915-459f-9c1c-dea675176022/yuyuyu-new-visual.png?v=1738347833114">
+</head>
+<body>
+  <div id="header"></div> 
+  <div class="content"><h1>画像をURL化</h1>
+  <input type="file" id="imageInput" accept="image/*">
+  <button id="uploadBtn">アップロード</button>
+  <p id="result"></p>
+
+  <script>
+    document.getElementById('uploadBtn').addEventListener('click', function () {
+      var fileInput = document.getElementById('imageInput').files[0];
+      if (!fileInput) {
+        alert('画像を選択してください');
+        return;
+      }
+
+      var reader = new FileReader();
+      reader.onload = function () {
+        var formData = new FormData();
+        formData.append('image', reader.result.split(',')[1]); // Base64エンコード済み画像
+
+        fetch('https://api.imgur.com/3/image', {
+          method: 'POST',
+          headers: {
+            'Authorization': 'Client-ID YOUR_CLIENT_ID'
+          },
+          body: formData
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              document.getElementById('result').innerHTML =
+                `アップロード成功: <a href="${data.data.link}" target="_blank">${data.data.link}</a>`;
+            } else {
+              document.getElementById('result').textContent = 'アップロード失敗';
+            }
+          })
+          .catch(err => console.error(err));
+      };
+
+      reader.readAsDataURL(fileInput);
+    });
+  </script>
+   <script src="script.js"></script>
+</div>
+  <div id="footer"></div> 
+  <script src="script.js"></script>
+</body>

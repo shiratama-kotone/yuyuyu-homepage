@@ -1,0 +1,55 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>タイトル</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="https://cdn.glitch.global/b063afd9-f3c5-4a81-a445-da854de0fa7a/yuyuyu-new-visual.png">
+</head>
+<body>
+  <div id="header"></div> 
+  <div class="content"><pre><code>
+function generateRandomString(length) {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return result;
+}
+
+function sendCounterMessages() {
+  const urlBase = "https://yuyuyu-new-instance.onrender.com/bbs/result"; // ベースURL
+  const channel = "battle"; // チャンネル名
+  const name = "ゆゆゆ"; // 名前
+  const repeatCount = 100; // 繰り返し回数（変更可）
+
+  function sendMessage(message, i) {
+    const seed = generateRandomString(10); // ランダムなseedを生成
+    const url = `${urlBase}?name=${name}&seed=${seed}&message=${encodeURIComponent(message)}&channel=${channel}`;
+
+    const options = {
+      'method': "GET",
+      'headers': {
+        'Cookie': 'yuki=True'
+      },
+      'muteHttpExceptions': true
+    };
+
+    try {
+      const response = UrlFetchApp.fetch(url, options);
+      Logger.log(`実行回数：${i} シード：[${seed}]`);
+    } catch (e) {
+      Logger.log(`Error occurred: ${e.message}`);
+    }
+  }
+
+  for (let i = 1; i <= repeatCount; i++) {
+    const message = `実行回数：${i}`;
+    sendMessage(message, i); // メッセージと実行回数を渡す
+    Utilities.sleep(5000); // 5秒待機
+  }
+}
+</code></pre></div>
+  <div id="footer"></div> 
+  <script src="script.js"></script>
+</body>

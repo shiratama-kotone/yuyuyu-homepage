@@ -1,0 +1,57 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>お問い合わせじゃなくてURL短縮(iz.gd)</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="https://cdn.glitch.global/b063afd9-f3c5-4a81-a445-da854de0fa7a/yuyuyu-new-visual.png">
+</head>
+<body>
+  <div id="header"></div> 
+  <div class="content">
+  
+  <label for="url">URLを入力してください:</label>
+  <input type="text" id="url" name="url" placeholder="例: https://example.com" required>
+  
+  <button id="shortenBtn">短縮する</button>
+  
+  <h3>短縮されたURL:</h3>
+  <div id="results"></div>
+
+  </div>
+  <div id="footer"></div> 
+  <script src="script.js"></script>
+</body>
+
+  <script>
+   document.getElementById('shortenBtn').addEventListener('click', async () => {
+  const url = document.getElementById('url').value.trim(); 
+  const resultsDiv = document.getElementById('results'); 
+
+  resultsDiv.innerHTML = ''; 
+
+  if (!url) {
+    resultsDiv.innerHTML = '<p class="error">URLを入力してください。</p>';
+    return;
+  }
+
+  const proxyUrl = 'https://api.allorigins.win/get?url=';
+  const apiUrl = `https://is.gd/create.php?format=simple&url=${encodeURIComponent(url)}`;
+
+  try {
+    const response = await fetch(proxyUrl + encodeURIComponent(apiUrl));
+    const responseData = await response.json();
+
+    if (!response.ok || !responseData.contents) {
+      throw new Error('短縮URLを取得できませんでした。');
+    }
+
+    const shortenedUrl = responseData.contents.trim();
+
+    resultsDiv.innerHTML = `
+      <p class="success">短縮されたURL: <a href="${shortenedUrl}" target="_blank">${shortenedUrl}</a></p>
+    `;
+  } catch (error) {
+    resultsDiv.innerHTML = `<p class="error">エラーが発生しました: ${error.message}</p>`;
+  }
+});
+</script>

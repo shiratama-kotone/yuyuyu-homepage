@@ -1,0 +1,158 @@
+html {
+  scroll-behavior: smooth;
+}
+
+
+@font-face {
+  font-family: 'Azuki';
+  src: url('https://cdn.glitch.global/b063afd9-f3c5-4a81-a445-da854de0fa7a/misaki_gothic.ttf?v=1747477684266') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'arial', sans-serif;
+  background-color: #e0f7fa;
+  color: #003366;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-weight: 100;
+}
+header {
+  background-color: #ffc1e0;
+  color: white;
+  padding: 5px 0; /* 上下の余白を調整 */
+  text-align: center;
+}
+
+footer {
+  background-color: #ffc1e0;
+  color: white;
+  text-align: center;
+  padding: 5px 0; /* 上下の余白を調整 */
+  width: 100%;
+  margin-top: auto;
+  position: relative; /* 必要に応じて調整 */
+}
+
+pre {
+  background-color: #f4f4f4;
+  color: #000000;
+  padding: 10px;
+  border: 5px solid #003366;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+h1.index1 {
+  display: inline-block;
+  padding-left: 10px; /* 横方向に少し開ける */
+  padding-right: 10px; /* 横方向に少し開ける */
+  padding-top: 10px; /* 上方向に少し開ける */
+  padding-bottom: 10px; /* 下方向に少し開ける */
+  border: 3px dotted #ffc1e0; /* 枠線 */
+  border-radius: 15px; /* 角を丸める */
+}
+
+
+
+
+.content {
+  flex: 1;
+  margin: 20px;
+}
+a {
+  color: inherit;
+  text-decoration: underline;
+}
+a:hover {
+  text-decoration: underline;
+}
+footer .sitemap {
+  margin-top: 1px;
+}
+footer .sitemap ul {
+  list-style: none;
+  padding: 0;
+}
+footer .sitemap li {
+  display: inline;
+  margin: 0 10px;
+}
+input, button {
+  padding: 10px;
+  margin: 10px;
+  font-size: 16px;
+  font-family: 'Arial', sans-serif;
+}
+
+button {
+  cursor: pointer;
+  background-color: #ffc1e0;
+  color: white;
+  font-family: 'Arial', sans-serif;
+}
+
+button:hover {
+  background-color: #ffe6f0;
+  font-family: 'Arial', sans-serif;
+}
+
+hr {
+  width: 100%;
+  height: 1px;
+  background-color: #003366;
+  border: none;
+}
+
+label {
+            display: block;
+            margin-top: 10px;
+        }
+
+input, select, textarea, {
+  width: 100%;
+  margin-top: 5px;
+  font-family: 'Arial', sans-serif;
+        }
+
+
+select {
+  font-family: 'Arial', sans-serif;
+}
+
+table {
+    font-size: 20px;
+  }
+
+th, td {
+  padding: 10px;
+  text-align: center;
+  border: 3px solid;
+}
+
+thead {
+  background-color: #f9f9f9;
+}
+
+.blink {
+  color: red;
+  font-weight: bold;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.clock {
+      font-size: 300px;
+      font-family: Azuki, sans-serif;
+      text-align: center;
+    }
+

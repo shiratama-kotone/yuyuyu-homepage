@@ -1,0 +1,62 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>面白いボールアニメーション</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="https://cdn.glitch.global/b063afd9-f3c5-4a81-a445-da854de0fa7a/yuyuyu-new-visual.png">
+</head>
+<body>
+  <div id="header"></div>
+  <div class="content">
+    <!-- ボールのアニメーションがここに表示されます -->
+  </div>
+  <div id="footer"></div>
+  <script>
+    const balls = [];
+    const colors = ['#FF5733', '#33FF57', '#3357FF', '#FFD700', '#FF33A1'];
+
+    // ボールを作成
+    for (let i = 0; i < 30; i++) {
+      const ball = document.createElement('div');
+      ball.className = 'ball';
+      ball.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      ball.style.left = `${Math.random() * window.innerWidth}px`;
+      ball.style.top = `${Math.random() * window.innerHeight}px`;
+      document.body.appendChild(ball);
+
+      balls.push({
+        element: ball,
+        xSpeed: (Math.random() - 0.5) * 5,
+        ySpeed: (Math.random() - 0.5) * 5,
+      });
+    }
+
+    // ボールを動かす
+    function animate() {
+      balls.forEach((ball) => {
+        const rect = ball.element.getBoundingClientRect();
+
+        // 位置を更新
+        let newX = rect.left + ball.xSpeed;
+        let newY = rect.top + ball.ySpeed;
+
+        // 壁に当たったら反射
+        if (newX <= 0 || newX + rect.width >= window.innerWidth) {
+          ball.xSpeed *= -1;
+        }
+        if (newY <= 0 || newY + rect.height >= window.innerHeight) {
+          ball.ySpeed *= -1;
+        }
+
+        // ボールの位置を反映
+        ball.element.style.left = `${newX}px`;
+        ball.element.style.top = `${newY}px`;
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+  <script src="script.js"></script>
+</body>

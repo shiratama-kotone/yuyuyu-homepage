@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>マインスイーパー</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="minesweeper">
+    <link rel="icon" href="https://cdn.glitch.global/b063afd9-f3c5-4a81-a445-da854de0fa7a/yuyuyu-new-visual.png">
+</head>
+<body>
+    <div id="header"></div>
+    <div class="content">
+        <h1>マインスイーパー</h1>
+        <form id="settings">
+            <label>
+                グリッドのサイズ（NxN）:
+                <input type="number" id="gridSize" value="10" min="5" max="20">
+            </label>
+            <br>
+            <label>
+                爆弾の数:
+                <input type="number" id="bombCount" value="20" min="1">
+            </label>
+            <br>
+            <button type="button" id="startGame">ゲーム開始</button>
+        </form>
+        <div id="gameBoard"></div>
+    </div>
+    <div id="footer"></div>
+    <script src="script.js"></script>
+    <script src="minesweeper.js"></script>
+</body>
+</html>

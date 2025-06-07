@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>メトロノーム</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    input {
+      margin: 10px;
+      padding: 5px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1>メトロノーム</h1>
+  <label for="tempo">テンポ (BPM):</label>
+  <input id="tempo" type="number" value="120" min="30" max="Infinity">
+  <button id="start">スタート</button>
+  <button id="stop">ストップ</button>
+
+  <script>
+    const tempoInput = document.getElementById('tempo');
+    const startButton = document.getElementById('start');
+    const stopButton = document.getElementById('stop');
+
+    let audioContext;
+    let intervalId = null;
+
+    function playClick() {
+      const osc = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+
+      osc.connect(gain);
+      gain.connect(audioContext.destination);
+
+      osc.type = 'sine';
+      osc.frequency.value = 2000; // 高めの音
+      gain.gain.setValueAtTime(1, audioContext.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.1);
+
+      osc.start(audioContext.currentTime);
+      osc.stop(audioContext.currentTime + 0.1);
+    }
+
+    function startMetronome() {
+      if (intervalId !== null) return; // 既に動作中なら無視
+
+      audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      const tempo = parseInt(tempoInput.value, 10);
+      const interval = 60000 / tempo;
+
+      intervalId = setInterval(playClick, interval);
+    }
+
+    function stopMetronome() {
+      if (intervalId !== null) {
+        clearInterval(intervalId);
+        intervalId = null;
+      }
+      if (audioContext) {
+        audioContext.close();
+        audioContext = null;
+      }
+    }
+
+    startButton.addEventListener('click', startMetronome);
+    stopButton.addEventListener('click', stopMetronome);
+  </script>
+</body>
+</html>

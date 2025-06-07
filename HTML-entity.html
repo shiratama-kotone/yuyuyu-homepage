@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文字をHTMLエンティティ化</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="https://cdn.glitch.global/b063afd9-f3c5-4a81-a445-da854de0fa7a/yuyuyu-new-visual.png">
+</head>
+<body>
+  <div id="header"></div>
+  <div class="content">
+    <h1>文字列をHTMLエンティティに変換</h1>
+    <input type="text" id="inputText" placeholder="変換したい文字を入力">
+    <button onclick="convertToEntities()">変換</button>
+    <p id="result"></p>
+  </div>
+  <div id="footer"></div>
+  <script src="script.js"></script>
+
+  <script>
+    function convertToEntities() {
+      var inputText = document.getElementById('inputText').value;
+      var result = '';
+      for (var i = 0; i < inputText.length; i++) {
+        result += '&#' + inputText.charCodeAt(i) + ';';
+      }
+      document.getElementById('result').innerText = result;
+    }
+  </script>
+</body>
+</html>

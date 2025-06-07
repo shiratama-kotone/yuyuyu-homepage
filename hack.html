@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>詳細情報取得システム</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <style>
+    body {
+      font-family: "Courier New", Courier, monospace;
+      background-color: #1e1e1e;
+      color: #00ff00;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    table, th, td {
+      border: 1px solid #00ff00;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+      color: #fff;
+    }
+    #status {
+      white-space: pre-wrap;
+      font-size: 18px;
+      margin: 20px 0;
+    }
+    #progress-bar {
+      width: 100%;
+      height: 20px;
+      background-color: #333;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    #progress {
+      width: 0%;
+      height: 100%;
+      background-color: #00ff00;
+      text-align: center;
+      line-height: 20px;
+      color: black;
+      font-weight: bold;
+    }
+    #map {
+      height: 500px;
+      width: 100%;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>詳細情報取得システム</h1>
+  <div id="status">個人情報を取得中 0%</div>
+  <div id="progress-bar">
+    <div id="progress">0%</div>
+  </div>
+
+  <!-- 情報表示領域 -->
+  <div id="info"></div>
+  
+  <!-- 地図表示領域 -->
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script>
+    // 音声認識用設定
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = 'ja-JP'; // 日本語認識
+    recognition.continuous = true; // 音声が途切れず認識
+    recognition.interimResults = true; // 一時的な結果も返す
+
+    // 音声認識の開始
+    function startRecognition() {
+      recognition.start();
+      console.log("音声認識開始...");
+    }
+
+    recognition.onresult = (event) => {
+      let transcript = '';
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        transcript += event.results[i][0].transcript;
+      }
+      console.log("認識結果: ", transcript);
+      playAudio(transcript); // 認識した内容をそのまま音声で出力
+    };
+
+    recognition.onerror = (event) => {
+      console.error("音声認識エラー: ", event.error);
+    };
+
+    // 音声をそのままスピーカーから出力
+    function playAudio(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'ja-JP'; // 日本語
+      window.speechSynthesis.speak(utterance); // スピーカーで再生
+    }
+
+    // 進行状況バーを更新する関数
+    function updateProgressBar(percentage) {
+      const progress = document.getElementById('progress');
+      progress.style.width = `${percentage}%`;
+      progress.textContent = `${percentage}%`;
+      document.getElementById('status').textContent = `個人情報を取得中 ${percentage}%`;
+    }
+
+    // 情報取得シミュレーション
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += 1;
+      updateProgressBar(progress);
+
+      if (progress === 100) {
+        clearInterval(interval);  // 進行状況バーの更新を停止
+        fetchData();  // 情報の取得を開始
+      }
+    }, 30);  // 30msごとに進行状況を1%ずつ進める
+
+    // ブラウザの詳細情報を取得
+    function getBrowserInfo() {
+      return {
+        userAgent: navigator.userAgent,
+        platform: navigator.platform,
+        language: navigator.language,
+        cookiesEnabled: navigator.cookieEnabled,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        screenResolution: `${screen.width}x${screen.height}`,
+        innerSize: `${window.innerWidth}x${window.innerHeight}`,
+        scrollPosition: `${window.scrollX}px, ${window.scrollY}px`
+      };
+    }
+
+    // バッテリー情報を取得
+    function getBatteryInfo() {
+      return navigator.getBattery ? navigator.getBattery().then(battery => {
+        return {
+          batteryLevel: `${Math.floor(battery.level * 100)}%`,
+          charging: battery.charging ? 'Yes' : 'No'
+        };
+      }) : Promise.resolve(null);
+    }
+
+    // 端末の加速度センサー情報（可能な場合）
+    function getDeviceMotionInfo() {
+      return new Promise((resolve) => {
+        if (window.DeviceMotionEvent) {
+          window.addEventListener('devicemotion', (event) => {
+            resolve({
+              accelerationX: event.acceleration.x,
+              accelerationY: event.acceleration.y,
+              accelerationZ: event.acceleration.z
+            });
+          }, { once: true });
+        } else {
+          resolve(null);
+        }
+      });
+    }
+
+    // 位置情報を取得（GPSが有効な場合）
+    function getGeoLocation() {
+      return new Promise((resolve, reject) => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition((position) => {
+            resolve({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+              accuracy: position.coords.accuracy
+            });
+          }, (error) => {
+            reject('位置情報が取得できませんでした');
+          });
+        } else {
+          reject('このブラウザでは位置情報が取得できません');
+        }
+      });
+    }
+
+    // IPアドレスから位置情報を取得する
+    function fetchData() {
+      // 情報表示エリアの初期化
+      const infoElement = document.getElementById('info');
+      let infoText = '取得中の詳細情報:\n\n';
+
+      // ブラウザ情報
+      const browserInfo = getBrowserInfo();
+      infoText += `ブラウザ情報:\nUser Agent: ${browserInfo.userAgent}\nPlatform: ${browserInfo.platform}\nLanguage: ${browserInfo.language}\nCookie Enabled: ${browserInfo.cookiesEnabled}\nTime Zone: ${browserInfo.timezone}\nScreen Resolution: ${browserInfo.screenResolution}\nWindow Size: ${browserInfo.innerSize}\nScroll Position: ${browserInfo.scrollPosition}\n\n`;
+
+      // バッテリー情報
+      getBatteryInfo().then((batteryInfo) => {
+        if (batteryInfo) {
+          infoText += `バッテリー情報:\nBattery Level: ${batteryInfo.batteryLevel}\nCharging: ${batteryInfo.charging}\n\n`;
+        }
+
+        // 加速度センサー情報
+        getDeviceMotionInfo().then((motionInfo) => {
+          if (motionInfo) {
+            infoText += `加速度情報:\nAcceleration X: ${motionInfo.accelerationX}\nAcceleration Y: ${motionInfo.accelerationY}\nAcceleration Z: ${motionInfo.accelerationZ}\n\n`;
+          }
+
+          // 位置情報を取得
+          getGeoLocation().then((geoLocation) => {
+            infoText += `位置情報:\nLatitude: ${geoLocation.latitude}\nLongitude: ${geoLocation.longitude}\nAccuracy: ${geoLocation.accuracy} meters\n\n`;
+
+            // IP情報取得（IPから位置情報を取得）
+            fetch('https://ipinfo.io/json?token=d89375d28f1468')
+              .then(response => response.json())
+              .then(data => {
+                const { ip, city, region, country, loc } = data;
+                const [latitude, longitude] = loc.split(',');
+                infoText += `IP情報:\nIP: ${ip}\nLocation: ${city}, ${region}, ${country}\nCoordinates: ${loc}\n\n`;
+
+                // 情報を画面に表示
+                infoElement.textContent = infoText;
+
+                // 地図を表示する準備
+                const map = L.map('map').setView([latitude, longitude], 10);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                  attribution: '&copy; OpenStreetMap contributors'
+                }).addTo(map);
+
+                // ピンを表示
+                L.marker([latitude, longitude]).addTo(map)
+                  .bindPopup(`位置: ${city}, ${region}, ${country}`)
+                  .openPopup();  // 初めからポップアップを表示
+              })
+              .catch(error => {
+                infoElement.textContent = `エラー: ${error}`;
+              });
+          }).catch(error => {
+            infoElement.textContent = `位置情報取得エラー: ${error}`;
+          });
+        });
+      });
+    }
+
+    // 音声認識を開始
+    startRecognition();
+  </script>
+</body>
+</html>

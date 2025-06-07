@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+   <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="https://cdn.glitch.global/92a9e88e-8915-459f-9c1c-dea675176022/yuyuyu-new-visual.png?v=1738347833114">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YukiBBSコマンド生成ツール</title>
+  <style>
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div id="header"></div>
+  <div class="content">
+    <h1>YukiBBSコマンド生成ツール</h1>
+    <form id="commandForm">
+      <label for="commandSelect">コマンド:</label>
+      <select id="commandSelect">
+        <option value="">選択してください</option>
+        <option value="/del">/del</option>
+        <option value="/destroy">/destroy</option>
+        <option value="/clear">/clear</option>
+        <option value="/NG">/NG</option>
+        <option value="/OK">/OK</option>
+        <option value="/prevent">/prevent</option>
+        <option value="/permit">/permit</option>
+        <option value="/restrict">/restrict</option>
+        <option value="/stop">/stop</option>
+        <option value="/prohibit">/prohibit</option>
+        <option value="/release">/release</option>
+        <option value="/speaker">/speaker</option>
+        <option value="/manager">/manager</option>
+        <option value="/summit">/summit</option>
+        <option value="/disspeaker">/disspeaker</option>
+        <option value="/dismanager">/dismanager</option>
+        <option value="/dissumit">/dissumit</option>
+        <option value="/disself">/disself</option>
+        <option value="/kill">/kill</option>
+        <option value="/ban">/ban</option>
+        <option value="/revive">/revive</option>
+        <option value="/reduce">/reduce</option>
+        <option value="/topic">/topic</option>
+        <option value="/add">/add</option>
+        <option value="/color">/color</option>
+        <option value="/instances">/instances</option>
+      </select>
+
+      <div id="dynamicInputs" class="hidden"></div>
+
+      <button type="button" id="generateButton">コマンド生成</button>
+    </form>
+    <p id="output"></p>
+  </div>
+  <div id="footer"></div>
+
+  <script src="script.js"></script>
+  <script>
+    var commandSelect = document.getElementById("commandSelect");
+    var dynamicInputs = document.getElementById("dynamicInputs");
+    var output = document.getElementById("output");
+    var generateButton = document.getElementById("generateButton");
+
+    commandSelect.addEventListener("change", function () {
+      dynamicInputs.innerHTML = "";
+      dynamicInputs.classList.add("hidden");
+
+      var selectedCommand = commandSelect.value;
+
+      if (!selectedCommand) return;
+
+      dynamicInputs.classList.remove("hidden");
+
+      switch (selectedCommand) {
+        case "/del":
+          dynamicInputs.innerHTML = '<input type="text" placeholder="投稿番号">';
+          break;
+        case "/destroy":
+        case "/NG":
+        case "/OK":
+          dynamicInputs.innerHTML = '<input type="text" placeholder="' + (selectedCommand === "/destroy" ? "削除したい文字列" : selectedCommand === "/NG" ? "NGしたい文字列" : "OKしたい文字列") + '">' +
+                                   '<button type="button" onclick="addInput()">+</button>';
+          break;
+        case "/prohibit":
+          dynamicInputs.innerHTML = '<input type="text" placeholder="青ID投稿投稿停止時間(最大3h)">';
+          break;
+        case "/speaker":
+        case "/manager":
+        case "/summit":
+        case "/disspeaker":
+        case "/dismanager":
+        case "/dissumit":
+        case "/kill":
+        case "/ban":
+          dynamicInputs.innerHTML = '<input type="text" placeholder="ID">';
+          break;
+        case "/topic":
+          dynamicInputs.innerHTML = '<input type="text" placeholder="topicにしたい内容">';
+          break;
+        case "/add":
+          dynamicInputs.innerHTML = '<input type="text" placeholder="ID"><input type="text" placeholder="addにする文字">';
+          break;
+        case "/color":
+          dynamicInputs.innerHTML = '<input type="text" placeholder="カラーコード"><input type="text" placeholder="ID">';
+          break;
+      }
+    });
+
+    function addInput() {
+      var newInput = document.createElement("input");
+      newInput.type = "text";
+      newInput.placeholder = "削除したい文字列";
+      dynamicInputs.appendChild(newInput);
+    }
+
+    generateButton.addEventListener("click", generateCommand);
+
+    document.getElementById("commandForm").addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        generateCommand();
+      }
+    });
+
+    function generateCommand() {
+      var selectedCommand = commandSelect.value;
+      if (!selectedCommand) {
+        output.textContent = "コマンドを選択してください。";
+        return;
+      }
+
+      var inputs = dynamicInputs.querySelectorAll("input");
+      var inputValues = Array.from(inputs).map(input => input.value.trim()).filter(value => value);
+
+      output.textContent = selectedCommand + (inputValues.length > 0 ? " " + inputValues.join(" ") : "");
+    }
+  </script>
+</body>
+</html>

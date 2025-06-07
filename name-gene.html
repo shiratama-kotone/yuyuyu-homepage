@@ -1,0 +1,63 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>名前生成</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="https://cdn.glitch.global/b063afd9-f3c5-4a81-a445-da854de0fa7a/yuyuyu-new-visual.png">
+</head>
+<body>
+  <div id="header"></div> 
+  <div class="content">
+    <h1>名前生成ツール</h1>
+    <div class="container">
+        <button onclick="generateName()">名前を生成</button>
+        <div id="generated-name"></div>
+    </div>
+
+    <script>
+        var lastNames = [
+            { kanji: "桜井", furigana: "さくらい" }, { kanji: "小桜", furigana: "こざくら" },
+            { kanji: "花村", furigana: "はなむら" }, { kanji: "星野", furigana: "ほしの" },
+            { kanji: "月野", furigana: "つきの" }, { kanji: "桃井", furigana: "ももい" },
+            { kanji: "秋山", furigana: "あきやま" }, { kanji: "美咲", furigana: "みさき" },
+            { kanji: "音無", furigana: "おとなし" }, { kanji: "小鳥遊", furigana: "ことなし" },
+            { kanji: "朝日", furigana: "あさひ" }, { kanji: "月岡", furigana: "つきおか" },
+            { kanji: "水瀬", furigana: "みなせ" }, { kanji: "春日", furigana: "かすが" },
+            { kanji: "千歳", furigana: "ちとせ" }, { kanji: "鈴村", furigana: "すずむら" },
+            { kanji: "紅葉", furigana: "もみじ" }, { kanji: "紫藤", furigana: "しどう" },
+            { kanji: "青木", furigana: "あおき" }, { kanji: "海野", furigana: "うみの" },
+            { kanji: "初音", furigana: "はつね" }, { kanji: "白玉", furigana: "しらたま" },
+            { kanji: "松本", furigana: "まつもと" }, { kanji: "長島", furigana: "ながしま" }, 
+        ];
+
+        var firstNames = [
+            { kanji: "和呼", furigana: "わこ" }, { kanji: "青空", furigana: "あおぞら" },
+            { kanji: "紫音", furigana: "しおん" }, { kanji: "美月", furigana: "みづき" },
+            { kanji: "瑠璃", furigana: "るり" }, { kanji: "杏花", furigana: "あんか" },
+            { kanji: "真由", furigana: "まゆ" }, { kanji: "陽菜", furigana: "ひな" },
+            { kanji: "美咲", furigana: "みさき" }, { kanji: "舞子", furigana: "まいこ" },
+            { kanji: "優月", furigana: "ゆづき" }, { kanji: "桜花", furigana: "おうか" },
+            { kanji: "結菜", furigana: "ゆいな" }, { kanji: "夏菜", furigana: "なつな" },
+            { kanji: "葵", furigana: "あおい" }, { kanji: "莉子", furigana: "りこ" },
+            { kanji: "美玲", furigana: "みれい" }, { kanji: "紗季", furigana: "さき" },
+            { kanji: "優花", furigana: "ゆうか" }, { kanji: "美優", furigana: "みゆ" },
+            { kanji: "ミク", furigana: "みく" }, { kanji: "琴音", furigana: "ことね" },
+            { kanji: "柚絆", furigana: "ゆずき" }, { kanji: "する", furigana: "する" },
+        ];
+
+        function generateName() {
+            var randomLast = lastNames[Math.floor(Math.random() * lastNames.length)];
+            var randomFirst = firstNames[Math.floor(Math.random() * firstNames.length)];
+
+            var fullName = randomLast.kanji + " " + randomFirst.kanji;
+            var furigana = randomLast.furigana + " " + randomFirst.furigana;
+
+            document.getElementById("generated-name").innerHTML = 
+                "生成された名前: <span style='font-size: 24px; font-weight: bold;'>" + fullName + "</span><br>" + 
+                "<span class='furigana'>ふりがな: " + furigana + "</span>";
+        }
+    </script>
+  </div>
+  <div id="footer"></div> 
+  <script src="script.js"></script>
+</body>
