@@ -1,24 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>お問い合わせ</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="https://cdn.glitch.global/b063afd9-f3c5-4a81-a445-da854de0fa7a/yuyuyu-new-visual.png">
+  <style>
+    /* style.cssに含めてもOKですが、今回は直接ここに記述します */
+    .required-label::after {
+      content: " *必須*"; /* 必須マークとしてアスタリスクを追加 */
+      color: red;
+      margin-left: 4px;
+    }
+  </style>
 </head>
 <body>
-  <div id="header"></div> 
-  <div class="content"><h1>お問い合わせ<br>
-  <a href="bakudan.html">ゆゆゆへメールする(ほぼ帰ってきません)</a></h1>
+  <div id="header"></div>
+  <div class="content">
+    <h1>お問い合わせ<br>
+    <a href="bakudan.html">ゆゆゆへメールする(ほぼ帰ってきません)</a></h1>
+
     <h1>お問い合わせフォーム</h1>
-  <iframe width="100%" height="500px" src="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAN__koSBjRURDJUTEU2UUhUUERJRjVSMjQwMjcxN09UUy4u&embed=true" frameborder="0" marginwidth="0" marginheight="0" style="border: none; max-width:100%; max-height:100vh" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
-</div>
-  <div id="footer"></div> 
+    <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="contact" />
+      <p class="hidden">
+        <label>
+          Don’t fill this out if you’re human: <input name="bot-field" />
+        </label>
+      </p>
+      <p>
+        <label for="name" class="required-label">名前:</label><br>
+        <input type="text" id="name" name="name" required>
+      </p>
+      <p>
+        <label for="email" class="required-label">メールアドレス(無い場合はchatworkまたはscratch):</label><br>
+        <input type="email" id="email" name="email" required>
+      </p>
+      <p>
+        <label for="message" class="required-label">お問い合わせ内容:</label><br>
+        <textarea id="message" name="message" rows="8" required></textarea>
+      </p>
+      <p>
+        <button type="submit">送信</button>
+      </p>
+    </form>
+  </div>
+  <div id="footer"></div>
   <script src="script.js"></script>
   <script>
-  (function(){var w=window;if(w.ChannelIO){return w.console.error("ChannelIO script included twice.");}var ch=function(){ch.c(arguments);};ch.q=[];ch.c=function(args){ch.q.push(args);};w.ChannelIO=ch;function l(){if(w.ChannelIOInitialized){return;}w.ChannelIOInitialized=true;var s=document.createElement("script");s.type="text/javascript";s.async=true;s.src="https://cdn.channel.io/plugin/ch-plugin-web.js";var x=document.getElementsByTagName("script")[0];if(x.parentNode){x.parentNode.insertBefore(s,x);}}if(document.readyState==="complete"){l();}else{w.addEventListener("DOMContentLoaded",l);w.addEventListener("load",l);}})();
+    (function(){var w=window;if(w.ChannelIO){return w.console.error("ChannelIO script included twice.");}var ch=function(){ch.c(arguments);};ch.q=[];ch.c=function(args){ch.q.push(args);};w.ChannelIO=ch;function l(){if(w.ChannelIOInitialized){return;}w.ChannelIOInitialized=true;var s=document.createElement("script");s.type="text/javascript";s.async=true;s.src="https://cdn.channel.io/plugin/ch-plugin-web.js";var x=document.getElementsByTagName("script")[0];if(x.parentNode){x.parentNode.insertBefore(s,x);}}if(document.readyState==="complete"){l();}else{w.addEventListener("DOMContentLoaded",l);w.addEventListener("load",l);}})();
 
-  ChannelIO('boot', {
-    "pluginKey": "ac4ff934-4b7a-48d3-85dc-61c96c96ce0a"
-  });
-</script>
+    ChannelIO('boot', {
+      "pluginKey": "ac4ff934-4b7a-48d3-85dc-61c96c96ce0a"
+    });
+  </script>
 </body>
+</html>
