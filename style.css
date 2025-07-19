@@ -4,14 +4,14 @@ html {
 
 
 @font-face {
-  font-family: 'Azuki';
-  src: url('https://cdn.glitch.global/b063afd9-f3c5-4a81-a445-da854de0fa7a/misaki_gothic.ttf?v=1747477684266') format('truetype');
+  font-family: 'Zen';
+  src: url('https://raw.githubusercontent.com/shiratama-kotone/yuyuyu-homepage/main/ZenMaruGothic-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 body {
-  font-family: 'arial', sans-serif;
+  font-family: 'Zen', sans-serif;
   background-color: #e0f7fa;
   color: #003366;
   margin: 0;
