@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 カウントダウン</title>
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        background: #ffffff;
+        color: #000000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    #text {
+        padding: 1em;
+        max-width: 100%;
+        word-break: keep-all;
+        white-space: pre-line;
+        font-size: clamp(16px, 6vw, 48px);
+        line-height: 1.4;
+    }
+</style>
+</head>
+<body>
+
+<div id="text"></div>
+
+<script>
+function updateCountdown() {
+    const now = new Date();
+    const target = new Date(2026, 0, 1, 0, 0, 0);
+    const diff = target - now;
+
+    const text = document.getElementById("text");
+
+    if (diff <= 0) {
+        text.textContent =
+            "あけましておめでとうございます！\n" +
+            "今年も1年よろしくお願いします！";
+        return;
+    }
+
+    let totalSeconds = Math.floor(diff / 1000);
+    const seconds = totalSeconds % 60;
+    totalSeconds = Math.floor(totalSeconds / 60);
+    const minutes = totalSeconds % 60;
+    const hours = Math.floor(totalSeconds / 60);
+
+    let result = "2026年まであと\n";
+
+    if (hours >= 1) {
+        result += hours + "時間 ";
+    }
+    if (minutes >= 1 || hours >= 1) {
+        result += minutes + "分 ";
+    }
+    result += seconds + "秒";
+
+    text.textContent = result;
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
