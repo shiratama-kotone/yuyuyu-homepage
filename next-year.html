@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026 カウントダウン</title>
+<title>2027 カウントダウン</title>
 <style>
     html, body {
         margin: 0;
@@ -22,8 +22,8 @@
     #text {
         padding: 1em;
         max-width: 100%;
-        word-break: keep-all;
         white-space: pre-line;
+        word-break: keep-all;
         font-size: clamp(16px, 6vw, 48px);
         line-height: 1.4;
     }
@@ -36,7 +36,7 @@
 <script>
 function updateCountdown() {
     const now = new Date();
-    const target = new Date(2026, 0, 1, 0, 0, 0);
+    const target = new Date(2027, 0, 1, 0, 0, 0); // 2027年1月1日
     const diff = target - now;
 
     const text = document.getElementById("text");
@@ -54,7 +54,7 @@ function updateCountdown() {
     const minutes = totalSeconds % 60;
     const hours = Math.floor(totalSeconds / 60);
 
-    let result = "2026年まであと\n";
+    let result = "2027年まであと\n";
 
     if (hours >= 1) {
         result += hours + "時間 ";
