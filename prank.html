@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>購入完了通知</title>
+<style>
+body {
+  background:#000;
+  color:#fff;
+  font-family: Arial, sans-serif;
+  text-align:center;
+  padding-top:120px;
+}
+
+/* 制限時間バー */
+#bar {
+  position:fixed;
+  top:0;
+  left:0;
+  height:12px;
+  background:red;
+  width:100%;
+  transition:width 1s linear;
+}
+
+h1 {
+  font-size:52px;
+  color:red;
+  margin-bottom:40px;
+}
+
+.info {
+  font-size:22px;
+  margin:18px 0;
+}
+
+.phone {
+  color:#ff5555;
+  font-weight:bold;
+  font-size:26px;
+}
+
+.price {
+  font-size:26px;
+  font-weight:bold;
+}
+
+/* ネタばらし注意書き */
+.disclaimer {
+  position:fixed;
+  bottom:5px;
+  width:100%;
+  text-align:center;
+  font-size:12px;
+  color:#aa0000;
+}
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+
+<h1>購入が完了しました</h1>
+
+<div class="info">
+キャンセルするには、<br>
+<span class="phone">080-9105-6890</span> に電話してください。
+</div>
+
+<div class="info price">
+購入内容：ゆゆゆ　¥1,010,000
+</div>
+
+<div class="disclaimer">
+※実際の購入ではありません
+</div>
+
+<script>
+let total = 300; // 5分
+let time = total;
+const bar = document.getElementById("bar");
+
+setInterval(() => {
+  time--;
+  bar.style.width = (time / total * 100) + "%";
+  if (time <= 0) {
+    bar.style.background = "darkred";
+  }
+}, 1000);
+</script>
+
+</body>
+</html>
